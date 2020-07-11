@@ -23,6 +23,7 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Status</th>
+                                <th>Role</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -36,6 +37,8 @@
                                         @else Active
                                         @endif
                                     </td>
+                                    <td>{{$user->role}}</td>
+
                                     <td> <a href="{{route('status', ['id'=> $user->id])}}">
                                         @if($user->status==0) Approve
                                         @else Deactive
