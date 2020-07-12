@@ -39,15 +39,15 @@
       All ORDERS
     </div>
 
-    <li class="nav-item">
+    <li class="nav-item active">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
         <i class="fas fa-fw fa-cog"></i>
         <span>Orders</span>
       </a>
-      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">All Orders:</h6>
-          <a class="collapse-item" href="buttons.html">Bulk Orders</a>
+          <a class="collapse-item" href="{{route('create')}}">Bulk Orders</a>
           <a class="collapse-item" href="{{route('placed')}}">Placed Orders</a>
           <a class="collapse-item" href="cards.html">Running Orders</a>
           <a class="collapse-item" href="cards.html">Returned Orders</a>

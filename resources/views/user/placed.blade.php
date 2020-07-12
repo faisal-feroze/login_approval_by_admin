@@ -10,7 +10,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Registered Users</h6>
+        <h6 class="m-0 font-weight-bold text-primary">All Placed Orders</h6>
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -48,22 +48,25 @@
               </tr>
             </tfoot>
             <tbody>
+
+              @foreach($orders as $order)
             
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{$count++}}</td>
+                    <td>{{$order->created_at->diffForHumans()}}</td>
+                    <td>{{ Carbon\Carbon::parse($order->pick_up_date)->format('Y-m-d') }}</td>
+                    <td>{{$order->pick_up_address}}</td>
+                    <td>{{$order->customer_name}}</td>
+                    <td>{{$order->customer_address}}</td>
+                    <td>{{$order->customer_note}}</td>
+                    <td>{{$order->amount}}</td>
+                    <td>{{$order->status}}</td>
+                    <td>{{$order->delivery_date}}</td>
+                    <td>{{$order->order_code}}</td>
+                    <td>{{$order->updated_at->diffForHumans()}}</td>
 
                 </tr>
+              @endforeach
                     
                 
             </tbody>

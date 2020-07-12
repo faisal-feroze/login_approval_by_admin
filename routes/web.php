@@ -31,3 +31,7 @@ Route::get('/admin/show_user', 'AdminController@show_user')->name('show_user');
 Route::get('/status/{id}', 'AdminController@status')->name('status');
 
 Route::get('/order/placed', 'UserController@placed')->name('placed');
+
+Route::get('/order/create', 'UserController@create')->name('create');
+
+Route::post('/order/store', 'UserController@store')->name('store');
