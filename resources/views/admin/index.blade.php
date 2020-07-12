@@ -1,5 +1,8 @@
-<x-admin-master>
+<x-dashboard-admin>
+
     @section('content')
         <h1>Welcome Admin</h1>
     @endsection
-</x-admin-master>
+
+
+</x-dashboard-admin>

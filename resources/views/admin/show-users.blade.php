@@ -1,4 +1,4 @@
-<x-admin-master>
+<x-dashboard-admin>
     @section('content')
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">All Registered Users</h1>
@@ -58,4 +58,4 @@
       </div>
     </div>
     @endsection
-</x-admin-master>
+</x-dashboard-admin>

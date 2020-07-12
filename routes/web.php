@@ -29,3 +29,5 @@ Route::get('/admin/show_user', 'AdminController@show_user')->name('show_user');
 //Route::get('/status/{id}', 'HomeController@status')->name('status');
 
 Route::get('/status/{id}', 'AdminController@status')->name('status');
+
+Route::get('/order/placed', 'UserController@placed')->name('placed');
