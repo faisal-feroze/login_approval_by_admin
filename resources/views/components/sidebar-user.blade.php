@@ -47,9 +47,9 @@
       <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">All Orders:</h6>
-          <a class="collapse-item" href="{{route('create')}}">Bulk Orders</a>
+          <a class="collapse-item" href="{{route('choose-create')}}">Bulk Orders</a>
           <a class="collapse-item" href="{{route('placed')}}">Placed Orders</a>
-          <a class="collapse-item" href="cards.html">Running Orders</a>
+          <a class="collapse-item" href="{{route('running')}}">Running Orders</a>
           <a class="collapse-item" href="cards.html">Returned Orders</a>
           <a class="collapse-item" href="cards.html">Completed Orders</a>
         </div>

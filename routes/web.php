@@ -32,6 +32,16 @@ Route::get('/status/{id}', 'AdminController@status')->name('status');
 
 Route::get('/order/placed', 'UserController@placed')->name('placed');
 
+Route::get('/order/running', 'UserController@running')->name('running');
+
 Route::get('/order/create', 'UserController@create')->name('create');
 
+Route::get('/order/create/bulk', 'UserController@create_bulk')->name('create.bulk');
+
 Route::post('/order/store', 'UserController@store')->name('store');
+
+Route::post('/order/store-bulk', 'UserController@store_bulk')->name('store-bulk');
+
+Route::get('/order/options', function () {
+    return view('user.order-option');
+})->name('choose-create')->middleware('auth');

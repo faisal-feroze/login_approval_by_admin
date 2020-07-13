@@ -277,6 +277,44 @@
   <!-- Page level custom scripts -->
   <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
 
+  <script>
+    $(document).ready(function(){
+        var i=1;
+        $('#add_new_order').click(function(){
+            console.log('clicked');
+       i++;
+       var append_code = '<div class="bulk_input row'+i+'">'+
+        '<p>customers Name/ Phone/ Address/ Cash Amount/ Pay by/ Product info/ Quantity/ Code</p>'+
+        '<div class="form-group row">'+
+            '<label for="text" class="col-sm-2 col-form-label"></label>'+
+            '<div class="col-sm-10">'+
+            '<textarea name="all_info[]" class="form-control" id="" cols="25" rows="10"'+
+            'placeholder="Line 1: Customer Name &#10;Line 2: Customer Phone&#10;Line 3: Customer Address &#10;Line 4: Cash Amount &#10;Line 5: Pay by &#10;Line 6: Product Detail &#10;Line 7: Quantity &#10;Line 8: Order Code"></textarea>'+
+            '</div>'+
+            '<label class="col-sm-2 col-form-label">Delivery Date</label>'+
+            '<div class="col-sm-10">'+
+            '<input type="date" name="delivery_date[]" class="form-control" id="" placeholder="">'+
+            '</div>'+
+        '</div>'+
+        '<div class="form-group col-md-1">'+
+          '<button type="button" id="'+i+'" class="btn btn_remove btn-danger">Remove</button>'+
+        '</div>'
+    '</div>'
+    ;
+   
+       $('.order_inouts').append(append_code);
+   
+        });
+
+        $(document).on('click', '.btn_remove', function(){
+            var button_id = $(this).attr("id");
+            $('.row'+button_id+'').remove();
+   
+        });
+
+    });
+</script>
+
 </body>
 
 </html>
