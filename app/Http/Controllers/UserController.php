@@ -30,9 +30,19 @@ class UserController extends Controller
     }
 
     public function running(){
-        $orders = auth()->user()->orders->where('status','order generated');
+        $orders = auth()->user()->orders->where('status','picked');
         return view('user.running-order',['orders'=>$orders,'count'=>1]);
-    }
+    } 
+
+    public function returned(){
+        $orders = auth()->user()->orders->where('status','returned');
+        return view('user.return-order',['orders'=>$orders,'count'=>1]);
+    } 
+
+    public function user_delivered(){
+        $orders = auth()->user()->orders->where('status','delivered');
+        return view('user.completed-order',['orders'=>$orders,'count'=>1]);
+    } 
 
     
 

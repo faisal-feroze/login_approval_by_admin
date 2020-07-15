@@ -50,8 +50,8 @@
           <a class="collapse-item" href="{{route('choose-create')}}">Bulk Orders</a>
           <a class="collapse-item" href="{{route('placed')}}">Placed Orders</a>
           <a class="collapse-item" href="{{route('running')}}">Running Orders</a>
-          <a class="collapse-item" href="cards.html">Returned Orders</a>
-          <a class="collapse-item" href="cards.html">Completed Orders</a>
+          <a class="collapse-item" href="{{route('returned')}}">Returned Orders</a>
+          <a class="collapse-item" href="{{route('user_delivered')}}">delivered Orders</a> 
         </div>
       </div>
     </li>
