@@ -22,12 +22,12 @@
                   <th>Company Name</th>
                   <th>Order Date</th>
                   <th>Pickup Date</th>
-                  <th>Pickup Address</th>
-                  <th>Customer Name</th>
                   <th>Customer Info</th>     
                   <th>Total Price</th>
                   <th>Parcel Status</th>
                   <th>Code</th>
+                  <th>Delivery Agent</th>
+                  <th>Collection Date</th>
                   <th>Returned At</th>
                 </tr>
               </thead>
@@ -37,12 +37,12 @@
                     <th>Company Name</th>
                     <th>Order Date</th>
                     <th>Pickup Date</th>
-                    <th>Pickup Address</th>
-                    <th>Customer Name</th>
                     <th>Customer Info</th>     
                     <th>Total Price</th>
                     <th>Parcel Status</th>
                     <th>Code</th>
+                    <th>Delivery Agent</th>
+                    <th>Collection Date</th>
                     <th>Returned At</th>
                 </tr>
               </tfoot>
@@ -54,13 +54,13 @@
                       <td>{{$count++}}</td>
                       <td>{{$order::find($order->id)->user->name}}</td>
                       <td>{{$order->created_at->diffForHumans()}}</td>
-                      <td>{{ Carbon\Carbon::parse($order->pick_up_date)->format('Y-m-d') }}</td>
-                      <td>{{$order->pick_up_address}}</td>
-                      <td>{{$order->customer_name}}</td>
-                      <td>{{$order->customer_address}}</td>
+                      <td>{{ Carbon\Carbon::parse($order->pick_up_date)->format('Y-m-d') }} <br> Pickup adress: {{$order->pick_up_address}}</td>
+                      <td>Name: {{$order->customer_name}} <br> Adress: {{$order->customer_address}}</td>                
                       <td>{{$order->amount}}</td>
                       <td>{{$order->status}}</td>
                       <td>{{$order->order_code}}</td>
+                      <td></td>
+                      <td></td>
                       <td>{{$order->updated_at->diffForHumans()}}</td>
   
                   </tr>

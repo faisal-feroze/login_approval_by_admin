@@ -64,4 +64,12 @@ Route::get('/order/picked', 'AdminController@picked')->name('picked');
 
 Route::get('/order/delivered', 'AdminController@delivered')->name('delivered');
 
+Route::get('/order/payment_due', 'AdminController@payment_due')->name('payment_due');
+
+Route::get('/order/pay_bill/{id}', 'AdminController@pay_bill')->name('pay_bill');
+
+Route::post('/order/cash_memo', 'AdminController@cash_memo')->name('cash_memo');
+
+
+
 

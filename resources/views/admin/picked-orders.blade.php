@@ -23,13 +23,13 @@
                   <th>Order Date</th>
                   <th>Pickup Date</th>
                   <th>Pickup Address</th>
-                  <th>Customer Name</th>
                   <th>Customer Info</th>
                   <th>Admin Note</th>
                   <th>Total Price</th>
                   <th>Parcel Status</th>
                   <th>Delivery Date</th>
                   <th>Code</th>
+                  <th>Picked By</th>
                   <th>Action</th>
                   <th>Updated At</th>
                 </tr>
@@ -41,13 +41,13 @@
                     <th>Order Date</th>
                     <th>Pickup Date</th>
                     <th>Pickup Address</th>
-                    <th>Customer Name</th>
                     <th>Customer Info</th>
                     <th>Admin Note</th>
                     <th>Total Price</th>
                     <th>Parcel Status</th>
                     <th>Delivery Date</th>
                     <th>Code</th>
+                    <th>Picked By</th>
                     <th>Action</th>
                     <th>Updated At</th>
                 </tr>
@@ -62,13 +62,13 @@
                       <td>{{$order->created_at->diffForHumans()}}</td>
                       <td>{{ Carbon\Carbon::parse($order->pick_up_date)->format('Y-m-d') }}</td>
                       <td>{{$order->pick_up_address}}</td>
-                      <td>{{$order->customer_name}}</td>
-                      <td>{{$order->customer_address}}</td>
+                      <td>Name: {{$order->customer_name}} <br> Address: {{$order->customer_address}} </td>
                       <td>{{$order->customer_note}}</td>
                       <td>{{$order->amount}}</td>
                       <td>{{$order->status}}</td>
                       <td>{{$order->delivery_date}}</td>
                       <td>{{$order->order_code}}</td>
+                      <td></td>
                       <td> 
                         <a href="{{ route('order_delivered',['id'=> $order->id])}}" class="btn btn-success">Delivered</a> 
                         <a href="{{ route('order_returned',['id'=> $order->id])}}" class="btn btn-danger">Canceled</a> 

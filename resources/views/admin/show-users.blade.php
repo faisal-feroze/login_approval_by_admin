@@ -18,8 +18,13 @@
             <thead>
               <tr>
                 <th>SL</th>
-                <th>Name</th>
-                <th>Email</th>
+                <th>Company Name</th>
+                <th>Phone</th>
+                <th>Username</th>
+                <th>Registered at</th>
+                <th>Last Update</th>
+                <th>Updated By</th>
+                <th>Code</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -27,8 +32,13 @@
             <tfoot>
               <tr>
                 <th>SL</th>
-                <th>Name</th>
-                <th>Email</th>
+                <th>Company Name</th>
+                <th>Phone</th>
+                <th>Username</th>
+                <th>Registered at</th>
+                <th>Last Update</th>
+                <th>Updated By</th>
+                <th>Code</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -37,8 +47,13 @@
                 @foreach($users as $user)
                     <tr>
                         <td>{{$count++}}</td>
-                        <td>{{$user->name}}</td>
-                        <td>{{$user->email}}</td>
+                        <td>{{$user->name}} <br> {{$user->email}} </td>
+                        <td></td>
+                        <td></td>
+                        <td>{{$user->created_at->diffForHumans()}}</td>
+                        <td>{{$user->updated_at->diffForHumans()}}</td>
+                        <td></td>
+                        <td></td>
                         <td>@if($user->status==0) Inactive
                             @else Active
                             @endif
