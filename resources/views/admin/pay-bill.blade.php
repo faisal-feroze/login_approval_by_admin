@@ -11,7 +11,7 @@
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <form action="{{route('cash_memo')}}" method="post">
+            <form class="bill_pay" action="{{route('cash_memo')}}" method="post">
             @csrf
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -43,9 +43,9 @@
                 <tbody>    
                   @foreach($orders as $order)
                 
-                    <tr>
+                    <tr class="box box_{{$count}}">
                         <td>{{$count++}}</td>
-                        <td><input type="checkbox" value="{{$order->id}}" name="choose[]"></td>
+                        <td><input class="ck_{{$count}}" type="checkbox" value="{{$order->id}}" name="choose[]"></td>
                         <td>{{$order->created_at->diffForHumans()}}</td>
                         <td>Name: {{$order->customer_name}} <br> Address: {{$order->customer_address}}</td>
                         <td>Product Info: {{$order->product_des}} <br> Quantity: {{$order->quantity}} </td>
@@ -54,9 +54,10 @@
                         <td>{{$order->order_code}}</td>
                         <td>
                           @if($order->status == 'returned') 
-                            <input type="number" min="0" name="delivery_charge[]" value="0">
+                            <input class="inp_{{$count}}" type="number" min="0" name="" value="0" disabled>
+                            
                           @else 
-                            <input type="number" min="0" name="delivery_charge[]">
+                            <input class="inp_{{$count}}" type="number" min="0" name="" disabled>
                           @endif
                         
                         </td>
@@ -65,7 +66,8 @@
                 </tbody>   
               </table>
               <input type="hidden" value="{{$user->id}}" name="user_id">
-              <button type="submit" class="btn btn-success">Cash Memo</button>
+              <input type="submit" id="cash_memo" class="btn btn-success" value="Cash Memo">
+              {{--  <button id="cash_memo" type="submit" class="btn btn-success">Cash Memo</button>  --}}
             </form>
           </div>
         </div>

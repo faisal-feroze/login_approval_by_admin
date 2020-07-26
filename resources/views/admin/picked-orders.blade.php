@@ -53,7 +53,7 @@
                 </tr>
               </tfoot>
               <tbody>
-  
+               
                 @foreach($orders as $order)
               
                   <tr>
@@ -67,12 +67,37 @@
                       <td>{{$order->amount}}</td>
                       <td>{{$order->status}}</td>
                       <td>{{$order->delivery_date}}</td>
-                      <td>{{$order->order_code}}</td>
-                      <td></td>
-                      <td> 
+                      <td>{{$order->order_code}}</td> 
+                      <td>{{ App\Agent::find($order->pickup_agent_id)->name }}</td>
+                      {{--  <td>{{ App\Agent::all()->where('id', $order->pickup_agent_id)->pluck('name')  }}</td>  --}}
+                      {{--  <td>{{App\Agent::select('name')->where('id', $order->pickup_agent_id)->get()}}</td>  --}}
+
+                      {{--  <td> 
                         <a href="{{ route('order_delivered',['id'=> $order->id])}}" class="btn btn-success">Delivered</a> 
                         <a href="{{ route('order_returned',['id'=> $order->id])}}" class="btn btn-danger">Canceled</a> 
-                      </td> 
+                      </td>   --}}
+                      <td>
+                        <form action="{{route('order_delivered', ['id'=> $order->id])}}" method="POST">
+                          @csrf
+                          @method('PATCH')
+                          <select name="agent_id" id="" style="margin-bottom: 20px;" required>
+                            <option value="">Select Delivery Man</option>
+                            @foreach($agents as $agent)
+                              <option value="{{$agent->id}}">{{$agent->name}}</option>
+                            @endforeach
+                          </select>
+                          <div>
+                            <p><input type="radio" selected name="after_picked" value="delivered" required>
+                              <label for="">Delivered</label>
+                            </p>
+                            <p> <input type="radio" name="after_picked" value="returned">
+                              <label for="">Returned</label>
+                            </p>
+                          </div>
+    
+                          <input type="submit" value="Submit" class="btn btn-success">
+                        </form>
+                      </td>
                       <td>{{$order->updated_at->diffForHumans()}}</td>
   
                   </tr>

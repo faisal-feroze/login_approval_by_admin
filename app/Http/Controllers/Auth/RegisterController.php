@@ -74,6 +74,7 @@ class RegisterController extends Controller
             'status' => false,
         ]);
         $user->attachRole('user');
+        $user->save();
         return $user;
     }
 

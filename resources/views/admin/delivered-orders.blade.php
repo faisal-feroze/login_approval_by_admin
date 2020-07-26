@@ -28,7 +28,7 @@
                   <th>Parcel Status</th>
                   <th>Delivery Date</th>
                   <th>Code</th>
-                  <th>Action</th>
+                  <th>Delivery Agent</th>
                   <th>Updated At</th>
                 </tr>
               </thead>
@@ -63,7 +63,7 @@
                       <td>{{$order->status}}</td>
                       <td>{{$order->delivery_date}}</td>
                       <td>{{$order->order_code}}</td>
-                      <td></td>
+                      <td>{{ App\Agent::find($order->delivery_agent_id)->name }}</td>
                       <td>{{$order->updated_at->diffForHumans()}}</td>
   
                   </tr>

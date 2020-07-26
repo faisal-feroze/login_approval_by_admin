@@ -62,7 +62,32 @@
                       <td>{{$order->status}}</td>
                       <td>{{$order->delivery_date}}</td>
                       <td>{{$order->order_code}}</td>
-                      <td> <a href="{{route('order_picked', ['id'=> $order->id])}}" class="btn btn-success">Picked</a> </td>
+                      {{--  <td> <a href="{{route('order_picked', ['id'=> $order->id])}}" class="btn btn-success">Picked</a> </td>  --}}
+                     <td>
+
+                      <form action="{{route('order_picked', ['id'=> $order->id])}}" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <select name="agent_id" id="" style="margin-bottom: 20px;" required>
+                          <option value="">Select Pickup Man</option>
+                          @foreach($agents as $agent)
+
+                            <option value="{{$agent->id}}">{{$agent->name}}</option>
+
+                          @endforeach
+
+                        </select>
+                        
+                        <input type="submit" value="Picked" class="btn btn-success">
+
+
+                      </form>
+                      
+
+
+                     </td>
+                     
+                     
                       <td>{{$order->updated_at->diffForHumans()}}</td>
   
                   </tr>

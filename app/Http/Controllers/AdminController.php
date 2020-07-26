@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Order;
 use App\Role;
+use App\Agent;
 
 class AdminController extends Controller
 {
@@ -28,49 +29,70 @@ class AdminController extends Controller
 
     public function all_orders(){
         $orders = Order::all()->where('status','order generated');
-        return view('admin.all-orders',['orders'=>$orders,'count'=>1]);
+        $agents = Agent::all()->where('status','active');
+        return view('admin.all-orders',['orders'=>$orders,'agents'=>$agents,'count'=>1]);
     } 
 
     public function picked(){
         $orders = Order::all()->where('status','picked');
-        return view('admin.picked-orders',['orders'=>$orders,'count'=>1]);
+        $agents = Agent::all();
+        return view('admin.picked-orders',['orders'=>$orders,'agents'=>$agents,'count'=>1]);
     } 
 
 
     public function delivered(){
+        //$orders = Order::where('status','delivered')->where('bill_status','Due')->get();
         $orders = Order::all()->where('status','delivered');
-        return view('admin.delivered-orders',['orders'=>$orders,'count'=>1]);
+        $agents = Agent::all();
+        return view('admin.delivered-orders',['orders'=>$orders,'agents'=>$agents,'count'=>1]);
     } 
 
 
     public function returned(){
+        //$orders = Order::where('status','returned')->where('bill_status','Due')->get();
         $orders = Order::all()->where('status','returned');
-        return view('admin.returned-orders',['orders'=>$orders,'count'=>1]);
+        $agents = Agent::all();
+        return view('admin.returned-orders',['orders'=>$orders,'agents'=>$agents,'count'=>1]);
     } 
 
 
     public function order_picked(Request $request, $id){
+
+        $inputs = $request->all();
+        $agent = $inputs['agent_id'];
         $order = Order::find($id);
         $order->status = 'picked';
+        $order->pickup_agent_id = $agent;
         $order->save();
         return redirect()->route('picked')->with('message',$order->order_code.' has been successfully picked');
     } 
 
 
     public function order_delivered(Request $request, $id){
+
+        $inputs = $request->all();
+        $agent = $inputs['agent_id'];
+        $after_picked = $inputs['after_picked'];
         $order = Order::find($id);
-        $order->status = 'delivered';
+        $order->status = $after_picked;
+        $order->delivery_agent_id = $agent;
         $order->save();
-        return redirect()->route('delivered')->with('message',$order->order_code.' has been successfully delivered');
+        if($after_picked=='delivered'){
+            return redirect()->route('delivered')->with('message',$order->order_code.' has been successfully delivered');
+        }
+        else{
+            return redirect()->route('order_returned_admin')->with('message',$order->order_code.' has been returned');
+        }
+        
     }   
 
 
-    public function order_returned(Request $request, $id){
-        $order = Order::find($id);
-        $order->status = 'returned';
-        $order->save();
-        return redirect()->route('order_returned_admin')->with('message',$order->order_code.' has been returned');
-    }
+    // public function order_returned(Request $request, $id){
+    //     $order = Order::find($id);
+    //     $order->status = 'returned';
+    //     $order->save();
+    //     return redirect()->route('order_returned_admin')->with('message',$order->order_code.' has been returned');
+    // }
 
 
     public function payment_due(){
@@ -91,7 +113,7 @@ class AdminController extends Controller
 
     public function pay_bill(Request $request, $id){
         $user = User::find($id);
-        $orders = $user->orders()->whereIn('status',['delivered','returned'])->get();
+        $orders = $user->orders()->whereIn('status',['delivered','returned'])->where('bill_status','Due')->get();
         //dd($orders);
         return view('admin.pay-bill',['orders'=>$orders,'user'=>$user,'count'=>1]);
 

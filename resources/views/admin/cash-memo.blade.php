@@ -11,57 +11,61 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-            
-                <table class="table table-bordered">
-                    <tr>
-                        <th colspan="1">Date of Deposit</th>
-                        <th colspan="6">{{date('Y-m-d H:i:s')}}</th>
-                    </tr>
-                    <tr>
-                        <th>Company Name</th>
-                        <th>Pick up Date</th>
-                        <th>Code No.</th>
-                        <th>Customer</th>
-                        <th>Parcel & Amount</th>
-                        <th>Service Charge</th>
-                        <th>Net Amount</th>
-                    </tr>
-                    <tr>
-                        <td rowspan="6">{{$user->name}}</td>
-                    </tr>
-                    @php
-                     $total = 0;
-                    @endphp
-                    @foreach($orders as $order)
+                
+                <form action="{{ route('invoice') }}" method="POST">
+                    @csrf
+        
+                    <table class="table table-bordered">
                         <tr>
-                            <td>{{$order->pick_up_date}}</td>
-                            <td>{{$order->order_code}}</td>
-                            <td>Name: {{$order->customer_name}} <br> Address: {{$order->customer_address}} </td>
-                            <td>Total quantity: {{$order->quantity}} <br>Total price: {{$order->amount}}</td>
-                            <td>{{$charges[$count]}}</td>
-                            <td>{{$order->amount - $charges[$count]}}</td>
-                            <?php 
-                                $total = $total + ($order->amount - $charges[$count]);
-                                $count++;                  
-                            ?>
-                        </tr>  
-                    @endforeach     
+                            <th colspan="1">Date of Deposit</th>
+                            <th colspan="6">{{date('Y-m-d H:i:s')}}</th>
+                        </tr>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Pick up Date</th>
+                            <th>Code No.</th>
+                            <th>Customer</th>
+                            <th>Parcel & Amount</th>
+                            <th>Service Charge</th>
+                            <th>Net Amount</th>
+                        </tr>
+                        <tr>
+                            <td rowspan="6">{{$user->name}}</td>
+                        </tr>
+                        @php
+                        $total = 0;
+                        @endphp
+                        @foreach($orders as $order)
+                            <tr>
+                                <td>{{$order->pick_up_date}} <input type="hidden" value="{{$order->id}}" name="order_id[]"> </td>
+                                <td>{{$order->order_code}}</td>
+                                <td>Name: {{$order->customer_name}} <br> Address: {{$order->customer_address}} </td>
+                                <td>Total quantity: {{$order->quantity}} <br>Total price: {{$order->amount}} <input type="hidden" value="{{$order->amount}}" name="total_amount[]"></td>
+                                <td>{{$charges[$count]}} <input type="hidden" value="{{$charges[$count]}}" name="service_charge[]"></td>
+                                <td>{{$order->amount - $charges[$count]}} <input type="hidden" value="{{$order->amount - $charges[$count]}}" name="net_amount[]"></td>
+                                <?php 
+                                    $total = $total + ($order->amount - $charges[$count]);
+                                    $count++;                  
+                                ?>
+                            </tr>  
+                        @endforeach     
 
-                    <tr>
-                        <td colspan="3">Total Order: {{$count}}</td>
-                        <td>Sub Total</td>
-                        <td></td>
-                        <td>{{$total}} BDT</td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">Payment Method: Bkash</td>
-                        <td>Total to Pay</td>
-                        <td></td>
-                        <td>{{$total}} BDT</td>
-                    </tr>
-                </table>
+                        <tr>
+                            <td colspan="3">Total Order: {{$count}}</td>
+                            <td>Sub Total</td>
+                            <td></td>
+                            <td>{{$total}} BDT</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">Payment Method: Bkash</td>
+                            <td>Total to Pay</td>
+                            <td></td>
+                            <td>{{$total}} BDT</td>
+                        </tr>
+                    </table>
 
-                <button type="" class="btn btn-success">Pay Bills</button>
+                    <button type="submit" class="btn btn-success">Pay Bills</button>
+                </form>
             </div>
         </div>
       </div>

@@ -41,9 +41,9 @@
                       <td>{{$user->name}}</td>
                       {{--  <td>{{$order::where('user_id', $order->user_id)->where('status','delivered')->count() }}</td>  --}}
                       {{--  <td>{{$order->where('user_id', $order->user_id)->count() }}</td>  --}}
-                      <td>{{$user->orders()->whereIn('status',['delivered','returned'])->count()}}</td>
+                      <td>{{$user->orders()->whereIn('status',['delivered','returned'])->where('bill_status','Due')->count()}}</td>
                       <td>   
-                        @if($user->orders()->where('status','delivered')->count()==0)   
+                        @if($user->orders()->whereIn('status',['delivered','returned'])->where('bill_status','Due')->count()==0)   
                         <p class="alert alert-danger">No bills to pay</p>
                         @else <a href="{{ route('pay_bill',['id'=>$user->id])}}" class="btn btn-primary">Pay Bill</a>
                         @endif

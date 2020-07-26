@@ -1,7 +1,7 @@
 <x-dashboard-admin>
     @section('content')
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">All Returned Orders</h1>
+    <h1 class="h3 mb-2 text-gray-800">All Paid Orders</h1>
 
     @if(session('message'))
         <div class="alert alert-success">{{session('message')}}</div>
@@ -11,24 +11,25 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">All Returned Orders</h6>
+          <h6 class="m-0 font-weight-bold text-primary">All Paid Orders</h6>
         </div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
-                  <th>SL</th>
-                  <th>Company Name</th>
-                  <th>Order Date</th>
-                  <th>Pickup Date</th>
-                  <th>Customer Info</th>     
-                  <th>Total Price</th>
-                  <th>Parcel Status</th>
-                  <th>Code</th>
-                  <th>Delivery Agent</th>
-                  <th>Collection Date</th>
-                  <th>Returned At</th>
+                    <th>SL</th>
+                    <th>Company Name</th>
+                    <th>Order Date</th>
+                    <th>Customer Reference</th>
+                    <th>Customer Info</th> 
+                    <th>Delivery Agent</th>    
+                    <th>Total Price</th>
+                    <th>Parcel Status</th>
+                    <th>Payment Status</th>
+                    <th>Code</th>
+                    <th>Updated At</th>
+                    <th>Cash Memo</th>
                 </tr>
               </thead>
               <tfoot>
@@ -36,14 +37,15 @@
                     <th>SL</th>
                     <th>Company Name</th>
                     <th>Order Date</th>
-                    <th>Pickup Date</th>
-                    <th>Customer Info</th>     
+                    <th>Customer Reference</th>
+                    <th>Customer Info</th> 
+                    <th>Delivery Agent</th>    
                     <th>Total Price</th>
                     <th>Parcel Status</th>
+                    <th>Payment Status</th>
                     <th>Code</th>
-                    <th>Delivery Agent</th>
-                    <th>Collection Date</th>
-                    <th>Returned At</th>
+                    <th>Updated At</th>
+                    <th>Cash Memo</th>
                 </tr>
               </tfoot>
               <tbody>
@@ -54,15 +56,16 @@
                       <td>{{$count++}}</td>
                       <td>{{$order::find($order->id)->user->name}}</td>
                       <td>{{$order->created_at->diffForHumans()}}</td>
-                      <td>{{ Carbon\Carbon::parse($order->pick_up_date)->format('Y-m-d') }} <br> Pickup adress: {{$order->pick_up_address}}</td>
-                      <td>Name: {{$order->customer_name}} <br> Adress: {{$order->customer_address}}</td>                
+                      <td></td>
+                      <td>Name: {{$order->customer_name}} <br> Adress: {{$order->customer_address}}</td>
+                      <td>{{ App\Agent::find($order->delivery_agent_id)->name }}</td>                
                       <td>{{$order->amount}}</td>
                       <td>{{$order->status}}</td>
+                      <td>{{$order->bill_status}}</td>
                       <td>{{$order->order_code}}</td>
-                      <td>{{ App\Agent::find($order->delivery_agent_id)->name }}</td>
-                      <td></td>
                       <td>{{$order->updated_at->diffForHumans()}}</td>
-  
+                      {{--  <td>{{ App\Invoice::select('memo_no')->where('order_id','=',$order->id)->get() }}</td>  --}}
+                      <td>{{ App\Invoice::where('order_id','=',$order->id)->pluck('memo_no')->first() }}</td>
                   </tr>
                 @endforeach
                       

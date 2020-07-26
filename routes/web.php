@@ -30,11 +30,11 @@ Route::get('/admin/show_user', 'AdminController@show_user')->name('show_user');
 
 Route::get('/status/{id}', 'AdminController@status')->name('status');
 
-Route::get('/order_picked/{id}', 'AdminController@order_picked')->name('order_picked');
+Route::patch('/order_picked/{id}', 'AdminController@order_picked')->name('order_picked');
 
-Route::get('/delivered/{id}', 'AdminController@order_delivered')->name('order_delivered');
+Route::patch('/delivered/{id}', 'AdminController@order_delivered')->name('order_delivered');
 
-Route::get('/returned/{id}', 'AdminController@order_returned')->name('order_returned');
+// Route::get('/returned/{id}', 'AdminController@order_returned')->name('order_returned');
 
 Route::get('/returned_orders', 'AdminController@returned')->name('order_returned_admin');
 
@@ -70,6 +70,18 @@ Route::get('/order/pay_bill/{id}', 'AdminController@pay_bill')->name('pay_bill')
 
 Route::post('/order/cash_memo', 'AdminController@cash_memo')->name('cash_memo');
 
+Route::get('/all-delivery-agents', 'DeliveryController@index')->name('all_agents');
+
+Route::get('/create-delivery-agents', 'DeliveryController@create')->name('create_all_agents');
+
+Route::post('/delivery-agents/store', 'DeliveryController@store')->name('agents.store');
+
+Route::get('/delivery-agents/edit/{id}', 'DeliveryController@edit')->name('agents.edit');
+
+Route::patch('/delivery-agents/update/{id}', 'DeliveryController@update')->name('agents.update');
 
 
+Route::post('/order/invoice', 'InvoiceController@store')->name('invoice');
+
+Route::get('/order/paid', 'InvoiceController@paid_orders')->name('paid_orders');
 
