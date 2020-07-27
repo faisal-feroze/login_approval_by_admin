@@ -23,7 +23,14 @@ class UserController extends Controller
 
 
     public function index(){
-        return view('user.index');
+        $order_placed = auth()->user()->orders->where('status','order placed')->count();
+        $order_running = auth()->user()->orders->where('status','picked')->count();
+        $order_delivered = auth()->user()->orders->where('status','delivered')->count();
+        $order_returned = auth()->user()->orders->where('status','returned')->count();
+        $order_completed = auth()->user()->orders->where('bill_status','paid')->count();
+        $order_transaction = auth()->user()->orders->where('bill_status','paid')->sum('amount');
+        
+        return view('user.index',['order_placed'=>$order_placed,'order_running'=>$order_running,'order_delivered'=>$order_delivered,'order_returned'=>$order_returned,'order_completed'=>$order_completed,'order_transaction'=>$order_transaction]);
     }
 
     public function placed(){
@@ -50,6 +57,25 @@ class UserController extends Controller
         $orders = auth()->user()->orders->where('bill_status','paid');
         return view('user.paid-order',['orders'=>$orders,'count'=>1]);
     } 
+
+    public function edit($id){
+        //$order = auth()->user()->orders()->where('id',$id);
+        $order = Order::find($id);
+        return view('user.edit-order',['order'=>$order]);
+    } 
+
+
+    public function update(Request $request, $id)
+    {
+        $inputs = $request->all();
+        $order = Order::find($id);
+        $order->update($inputs);
+        session()->flash('message','Order is Updated');
+        return redirect()->route('placed');
+    }
+
+
+    
 
     
 
