@@ -26,12 +26,20 @@
 
               <div class="order_inouts">
                 <div class="bulk_input">
-                    <p>customers Name/ Phone/ Address/ Cash Amount/ Pay by/ Product info/ Quantity/ Code</p>
+                    <p>customers Name/ Phone/ Address/ Cash Amount/ Pay by/ Product info/ Quantity</p>
                     <div class="form-group row">
-                        <label for="text" class="col-sm-2 col-form-label"></label>
+                        <label for="text" class="col-sm-2 col-form-label">
+                          Line 1: customers Name <br>
+                          Line 2: customers Phone <br>
+                          Line 3: customers Address <br>
+                          Line 4: Cash Amount <br>
+                          Line 5: Pay by <br>
+                          Line 6: Product info <br>
+                          Line 7: Quantity <br>
+                        </label>
                         <div class="col-sm-10">
-                        <textarea name="all_info[]" class="form-control" id="" cols="25" rows="10" 
-                        placeholder="Line 1: Customer Name &#10;Line 2: Customer Phone&#10;Line 3: Customer Address &#10;Line 4: Cash Amount &#10;Line 5: Pay by &#10;Line 6: Product Detail &#10;Line 7: Quantity &#10;Line 8: Order Code"></textarea>
+                        <textarea name="all_info[]" class="form-control" id="" cols="25" rows="8" 
+                        placeholder="Line 1: Customer Name &#10;Line 2: Customer Phone&#10;Line 3: Customer Address &#10;Line 4: Cash Amount &#10;Line 5: Pay by &#10;Line 6: Product Detail &#10;Line 7: Quantity"></textarea>
                         </div>
 
                         <label class="col-sm-2 col-form-label">Delivery Date</label>

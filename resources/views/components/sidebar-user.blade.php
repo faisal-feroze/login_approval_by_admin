@@ -51,7 +51,8 @@
           <a class="collapse-item" href="{{route('placed')}}">Placed Orders</a>
           <a class="collapse-item" href="{{route('running')}}">Running Orders</a>
           <a class="collapse-item" href="{{route('returned')}}">Returned Orders</a>
-          <a class="collapse-item" href="{{route('user_delivered')}}">delivered Orders</a> 
+          <a class="collapse-item" href="{{route('user_delivered')}}">Delivered Orders</a> 
+          <a class="collapse-item" href="{{route('user_completed')}}">Completed Orders</a> 
         </div>
       </div>
     </li>

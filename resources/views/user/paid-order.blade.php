@@ -1,12 +1,12 @@
 <x-dashboard-user>
     @section('content')
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Returned Orders</h1>
+    <h1 class="h3 mb-2 text-gray-800">Running Placed Orders</h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Returned Orders</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Running Placed Orders</h6>
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -19,9 +19,10 @@
                 <th>Admin Note</th>
                 <th>Total Price</th>
                 <th>Parcel Status</th>
+                <th>Delivery Date</th>
                 <th>Cash Memo</th>
                 <th>Code</th>
-                <th>Updated At</th>
+                <th>Updated At</th> 
               </tr>
             </thead>
             <tfoot>
@@ -32,10 +33,10 @@
                 <th>Admin Note</th>
                 <th>Total Price</th>
                 <th>Parcel Status</th>
+                <th>Delivery Date</th>
                 <th>Cash Memo</th>
                 <th>Code</th>
-                <th>Updated At</th>
-              </tr>
+                <th>Updated At</th> 
             </tfoot>
             <tbody>
 
@@ -47,10 +48,11 @@
                 <tr>
                     <td>{{$count++}}</td>
                     <td>{{$order->created_at->diffForHumans()}}</td>
-                    <td>Name: {{$order->customer_name}} <br> Address: {{$order->customer_address}} </td>
+                    <td>Name: {{$order->customer_name}} <br> Address: {{$order->customer_address}}</td>
                     <td>{{$order->customer_note}}</td>
                     <td>{{$order->amount}}</td>
                     <td>{{$order->status}}</td>
+                    <td>{{$order->delivery_date}}</td>
                     <td><a href="{{route('show.invoice',['memo'=> $memo])}}">{{$memo}}</a></td>
                     <td>{{$order->order_code}}</td>
                     <td>{{$order->updated_at->diffForHumans()}}</td>

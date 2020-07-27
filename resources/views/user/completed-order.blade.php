@@ -43,7 +43,9 @@
             <tbody>
 
               @foreach($orders as $order)
-            
+                @php
+                    $memo = App\Invoice::where('order_id','=',$order->id)->pluck('memo_no')->first();
+                @endphp
                 <tr>
                     <td>{{$count++}}</td>
                     <td>{{$order->created_at->diffForHumans()}}</td>
@@ -53,7 +55,11 @@
                     <td>{{$order->amount}}</td>
                     <td>{{$order->status}}</td>
                     <td>{{$order->delivery_date}}</td>
-                    <td> </td>
+                    <td>
+                      @if($memo)
+                        <a href="{{route('show.invoice',['memo'=> $memo])}}">{{$memo}}</a>
+                      @endif
+                    </td>
                     <td>{{$order->order_code}}</td>
                     <td>{{$order->updated_at->diffForHumans()}}</td>
 

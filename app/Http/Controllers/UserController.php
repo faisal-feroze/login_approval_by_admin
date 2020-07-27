@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 //use Illuminate\Support\Facades\Input;
 use App\User;
 use App\Order;
+use App\Invoice;
 //use App\Http\Controllers\Auth;
 use Illuminate\Support\Facades\Auth;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 
 class UserController extends Controller
@@ -25,7 +27,7 @@ class UserController extends Controller
     }
 
     public function placed(){
-        $orders = auth()->user()->orders;
+        $orders = auth()->user()->orders->where('status','order placed');
         return view('user.placed-order',['orders'=>$orders,'count'=>1]);
     }
 
@@ -44,6 +46,11 @@ class UserController extends Controller
         return view('user.completed-order',['orders'=>$orders,'count'=>1]);
     } 
 
+    public function user_completed(){
+        $orders = auth()->user()->orders->where('bill_status','paid');
+        return view('user.paid-order',['orders'=>$orders,'count'=>1]);
+    } 
+
     
 
     public function create(){
@@ -60,7 +67,7 @@ class UserController extends Controller
 
         $inputs = $request->all();
 
-        $inputs['status']= 'order generated'; 
+        $inputs['status']= 'order placed'; 
 
         $inputs['bill_received'] = 'NO';
 
@@ -91,10 +98,27 @@ class UserController extends Controller
         $max = sizeof($data);
 
        // $values = explode("\n", $data[0]);
+ 
+                //
+        $config = ['table'=>'orders','length'=>10,'prefix'=>date('ym')];
+        $memo_no = IdGenerator::generate($config);
+        //$prcl_no = 'PRCL-'.Haruncpi\LaravelIdGenerator\IdGenerator::generate($config);
+      
 
         for($i=0; $i<$max; $i++){
 
             $values = explode("\n", $data[$i]);
+
+            // $config = ['table'=>'users','length'=>10,'prefix'=>date('ym')];
+            // $prcl_no = 'PRCL-'.IdGenerator::generate($config);
+            //$prcl_no = 'PRCL-'.$memo_no;
+            //$memo_no++
+            //echo $prcl_no
+
+           $lastCompanyId = Order::select('id')->orderBy('id','desc')->first();
+           $lastCompanyId=(int)substr($lastCompanyId , -3);
+           $lastCompanyId++;
+           $prcl_no = 'PRCL-'.$lastCompanyId;
 
             $order_data = [
                 'user_id'=> Auth::user()->id,
@@ -107,9 +131,9 @@ class UserController extends Controller
                 'pay_by' => $values[4],
                 'product_des' => $values[5],
                 'quantity' => $values[6],
-                'order_code' => $values[7],
+                'order_code' => $prcl_no,
                 'delivery_date' => $delivery_date[$i],
-                'status' => 'order generated',
+                'status' => 'order placed',
                 'bill_received' => 'NO',
                 'bill_status' => 'Due',
                 'customer_note' => 'Deliver ASAP',
@@ -117,6 +141,7 @@ class UserController extends Controller
             ];
 
             Order::create($order_data);
+            $memo_no++;
        
             
         }
@@ -136,6 +161,16 @@ class UserController extends Controller
         return redirect()->route('placed');
 
         
+    }
+
+    public function view_invoice($memo){
+
+        $invoices = Invoice::all()->where('memo_no','=',$memo);
+        $order_id = Invoice::where('memo_no','=',$memo)->pluck('order_id')->first();
+        $created_at = Invoice::where('memo_no','=',$memo)->pluck('created_at')->first();
+        $company_name = Order::find($order_id)->user->name;
+        return view('user.view-invoice',['invoices'=>$invoices,'count'=>0, 'company_name'=>$company_name,'memo'=>$memo,'created_at'=>$created_at]);
+
     }
 
     

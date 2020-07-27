@@ -14,14 +14,14 @@
             <div class="form-group row">
               <label for="" class="col-sm-2 col-form-label">Pickup Date</label>
               <div class="col-sm-10">
-                <input type="date" name="pick_up_date" class="form-control" id="" placeholder="">
+                <input type="date" name="pick_up_date" class="form-control" id="" placeholder="" required>
               </div>
             </div>
 
             <div class="form-group row">
                 <label for="text" class="col-sm-2 col-form-label">Pickup Address</label>
                 <div class="col-sm-10">
-                  <textarea name="pick_up_address" class="form-control" id="" cols="22" rows="7"></textarea>
+                  <textarea name="pick_up_address" class="form-control" id="" cols="8" rows="4" required></textarea>
                 </div>
             </div>
 
@@ -31,33 +31,43 @@
             <div class="form-group row">
                 <label for="text" class="col-sm-2 col-form-label">Name</label>
                 <div class="col-sm-10">
-                  <input type="text" name="customer_name" class="form-control" id="" value="">
+                  <input type="text" name="customer_name" class="form-control" id="" value="" required>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="text" class="col-sm-2 col-form-label">Mobile</label>
                 <div class="col-sm-10">
-                  <input type="text" name="customer_mobile" class="form-control" id="" value="">
+                  <input type="text" name="customer_mobile" class="form-control" id="" value="" required>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="text" class="col-sm-2 col-form-label">Addess</label>
                 <div class="col-sm-10">
-                    <textarea name="customer_address" class="form-control" id="" cols="22" rows="7"></textarea>
+                    <textarea name="customer_address" class="form-control" id="" cols="8" rows="4" required></textarea>
                 </div>
             </div>
 
 
             <p class="border-bottom-primary">Parcel Information</p>
 
-            <div class="form-group row">
+          @php
+
+            $lastCompanyId = App\Order::select('id')->orderBy('id','desc')->first();
+            $lastCompanyId=(int)substr($lastCompanyId , -3);
+            $lastCompanyId++;
+            $prcl_no = 'PRCL-'.$lastCompanyId;
+
+          @endphp
+
+            {{--  <div class="form-group row">
                 <label for="text" class="col-sm-2 col-form-label">Order Code</label>
                 <div class="col-sm-10">
-                  <input type="text" name="order_code" class="form-control" id="" value="">
+                  <input type="text" name="order_code" class="form-control" id="" value="{{$prcl_no}}">
                 </div>
-            </div>
+            </div>  --}}
+            <input type="hidden" name="order_code" class="form-control" id="" value="{{$prcl_no}}">
 
             <div class="form-group row">
                 <label for="text" class="col-sm-2 col-form-label">Product Description</label>
@@ -69,14 +79,14 @@
             <div class="form-group row">
                 <label for="text" class="col-sm-2 col-form-label">Quantity</label>
                 <div class="col-sm-10">
-                  <input type="number" name="quantity" class="form-control" id="" value="">
+                  <input type="number" name="quantity" class="form-control" id="" value="" required>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="text" class="col-sm-2 col-form-label">Cash Amount (Including Delivery Charge)</label>
                 <div class="col-sm-10">
-                  <input type="number" name="amount" class="form-control" id="" value="">
+                  <input type="number" name="amount" class="form-control" id="" value="" required>
                 </div>
             </div>
 
@@ -90,7 +100,7 @@
             <div class="form-group row">
                 <label for="" class="col-sm-2 col-form-label">Delivery Date</label>
                 <div class="col-sm-10">
-                  <input type="date" name="delivery_date" class="form-control" id="" placeholder="">
+                  <input type="date" name="delivery_date" class="form-control" id="" placeholder="" required>
                 </div>
             </div>
 

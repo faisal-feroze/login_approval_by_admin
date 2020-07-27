@@ -28,7 +28,7 @@ class AdminController extends Controller
     } 
 
     public function all_orders(){
-        $orders = Order::all()->where('status','order generated');
+        $orders = Order::all()->where('status','order placed');
         $agents = Agent::all()->where('status','active');
         return view('admin.all-orders',['orders'=>$orders,'agents'=>$agents,'count'=>1]);
     } 

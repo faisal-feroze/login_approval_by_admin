@@ -44,6 +44,9 @@ Route::get('/order/running', 'UserController@running')->name('running');
 Route::get('/order/returned', 'UserController@returned')->name('returned');
 
 Route::get('/order/user_delivered', 'UserController@user_delivered')->name('user_delivered');
+Route::get('/order/user_completed', 'UserController@user_completed')->name('user_completed');
+
+
 
 Route::get('/order/create', 'UserController@create')->name('create');
 
@@ -85,5 +88,7 @@ Route::post('/order/invoice', 'InvoiceController@store')->name('invoice');
 
 Route::get('/order/paid', 'InvoiceController@paid_orders')->name('paid_orders');
 
-Route::get('/order/view/invoice{memo}', 'InvoiceController@view_invoice')->name('view.invoice');
+Route::get('/order/view/invoice/{memo}', 'InvoiceController@view_invoice')->name('view.invoice');
+
+Route::get('user/order/view/invoice/{memo}', 'UserController@view_invoice')->name('show.invoice');
 
