@@ -51,6 +51,9 @@
               <tbody>
   
                 @foreach($orders as $order)
+                  @php
+                    $memo = App\Invoice::where('order_id','=',$order->id)->pluck('memo_no')->first();
+                  @endphp
               
                   <tr>
                       <td>{{$count++}}</td>
@@ -65,7 +68,7 @@
                       <td>{{$order->order_code}}</td>
                       <td>{{$order->updated_at->diffForHumans()}}</td>
                       {{--  <td>{{ App\Invoice::select('memo_no')->where('order_id','=',$order->id)->get() }}</td>  --}}
-                      <td>{{ App\Invoice::where('order_id','=',$order->id)->pluck('memo_no')->first() }}</td>
+                      <td> <a href="{{route('view.invoice',['memo'=> $memo])}}">{{$memo}}</a></td>
                   </tr>
                 @endforeach
                       

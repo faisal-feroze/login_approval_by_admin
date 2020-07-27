@@ -40,7 +40,11 @@
                                 <td>{{$order->pick_up_date}} <input type="hidden" value="{{$order->id}}" name="order_id[]"> </td>
                                 <td>{{$order->order_code}}</td>
                                 <td>Name: {{$order->customer_name}} <br> Address: {{$order->customer_address}} </td>
-                                <td>Total quantity: {{$order->quantity}} <br>Total price: {{$order->amount}} <input type="hidden" value="{{$order->amount}}" name="total_amount[]"></td>
+                                <td>
+                                    Total price: {{$order->amount}} <input type="hidden" value="{{$order->amount}}" name="total_amount[]"> <br>
+                                    Total quantity: {{$order->quantity}}  <br>
+                                    Parcel Status: {{$order->status}}
+                                </td>
                                 <td>{{$charges[$count]}} <input type="hidden" value="{{$charges[$count]}}" name="service_charge[]"></td>
                                 <td>{{$order->amount - $charges[$count]}} <input type="hidden" value="{{$order->amount - $charges[$count]}}" name="net_amount[]"></td>
                                 <?php 

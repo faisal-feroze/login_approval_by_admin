@@ -85,3 +85,5 @@ Route::post('/order/invoice', 'InvoiceController@store')->name('invoice');
 
 Route::get('/order/paid', 'InvoiceController@paid_orders')->name('paid_orders');
 
+Route::get('/order/view/invoice{memo}', 'InvoiceController@view_invoice')->name('view.invoice');
+

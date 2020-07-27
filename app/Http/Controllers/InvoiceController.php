@@ -7,6 +7,8 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 use App\Invoice;
 use App\Order;
 use App\Agent;
+use App\User;
+use Carbon\Carbon;
 
 class InvoiceController extends Controller
 {
@@ -40,7 +42,8 @@ class InvoiceController extends Controller
         $invoice = new Invoice;
         
         $cash_memos = [];
-     
+        
+        $created_at = Carbon::now();
 
         for($i=0; $i<$max; $i++){
 
@@ -50,6 +53,8 @@ class InvoiceController extends Controller
                         'total_amount' => $total_amount[$i],
                         'service_charge' => $service_charge[$i],
                         'net_amount' => $net_amount[$i],
+                        'created_at' => $created_at,
+                        'updated_at' => $created_at,
                     ); 
 
             \DB::table('orders')->where('id', $order_id[$i])->update(['bill_received'=>'YES','bill_status'=>'paid']);
@@ -60,5 +65,17 @@ class InvoiceController extends Controller
         return redirect()->route('paid_orders')->with('message','Bill has been successfully generated');
 
     }
+
+
+    public function view_invoice($memo){
+
+        $invoices = Invoice::all()->where('memo_no','=',$memo);
+        $order_id = Invoice::where('memo_no','=',$memo)->pluck('order_id')->first();
+        $created_at = Invoice::where('memo_no','=',$memo)->pluck('created_at')->first();
+        $company_name = Order::find($order_id)->user->name;
+        return view('admin.view-invoice',['invoices'=>$invoices,'count'=>0, 'company_name'=>$company_name,'memo'=>$memo,'created_at'=>$created_at]);
+
+    }
+    
     
 }
