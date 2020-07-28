@@ -57,9 +57,7 @@
                     </div>
                 </a>
             </div>
-        </div>
-
-        <div class="row">
+        
             <div class="col-xl-4 col-md-6 mb-4">
                 <a href="{{route('returned')}}">
                     <div class="card border-left-primary shadow h-100 py-2">

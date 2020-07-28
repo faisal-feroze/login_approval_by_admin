@@ -74,10 +74,21 @@ class UserController extends Controller
         return redirect()->route('placed');
     }
 
+    public function company_update(Request $request, $id)
+    {
+        $inputs = $request->all();
+        $user = User::find($id);
+        $user->update($inputs);
+        session()->flash('message','Your Profile has been Updated');
+        return redirect()->route('my_company');
+    }
 
-    
+    public function company()
+    {
+        return view('user.company');
+    }
 
-    
+
 
     public function create(){
         return view('user.create');

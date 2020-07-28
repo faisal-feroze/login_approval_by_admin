@@ -2,10 +2,10 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-      <div class="sidebar-brand-icon rotate-n-15">
-        {{--  <i class="fas fa-laugh-wink"></i>  --}}
+      <div class="sidebar-brand-icon" style="font-size:10px !important;">
+        {{--  <i class="fas fa-laugh-wink"></i>  --}} Company A
       </div>
-      <div class="sidebar-brand-text mx-3">Quick Drop</div>
+      <div class="sidebar-brand-text mx-3">{{auth()->user()->company_name}}</div>
     </a>
 
     <!-- Divider -->
@@ -28,7 +28,7 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-      <a class="nav-link" href="#">
+      <a class="nav-link" href="{{route('my_company')}}">
         <i class="fas fa-fw fa-chart-area"></i>
         <span>My Company</span></a>
     </li>
@@ -39,44 +39,50 @@
       All ORDERS
     </div>
 
-    <li class="nav-item active">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-        <i class="fas fa-fw fa-cog"></i>
-        <span>Orders</span>
-      </a>
-      <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">All Orders:</h6>
-          <a class="collapse-item" href="{{route('choose-create')}}">Bulk Orders</a>
-          <a class="collapse-item" href="{{route('placed')}}">Placed Orders</a>
-          <a class="collapse-item" href="{{route('running')}}">Running Orders</a>
-          <a class="collapse-item" href="{{route('returned')}}">Returned Orders</a>
-          <a class="collapse-item" href="{{route('user_delivered')}}">Delivered Orders</a> 
-          <a class="collapse-item" href="{{route('user_completed')}}">Completed Orders</a> 
-        </div>
-      </div>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('choose-create') }}">
+        <i class="fas fa-fw fa-chart-area"></i>
+        <span>Bulk Orders</span></a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('placed') }}">
+        <i class="fas fa-fw fa-chart-area"></i>
+        <span>Placed Orders</span></a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('running') }}">
+        <i class="fas fa-fw fa-chart-area"></i>
+        <span>Running Orders</span></a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('returned') }}">
+        <i class="fas fa-fw fa-chart-area"></i>
+        <span>Returned Orders</span></a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('user_delivered') }}">
+        <i class="fas fa-fw fa-chart-area"></i>
+        <span>Delivered Orders</span></a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('user_completed') }}">
+        <i class="fas fa-fw fa-chart-area"></i>
+        <span>Completed Orders</span></a>
     </li>
 
 
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-      ORDER ARCHIVE
-    </div>
-
-    <li class="nav-item">
-      <a class="nav-link" href="{{ route('show_user') }}">
-        <i class="fas fa-fw fa-chart-area"></i>
-        <span>Orders</span></a>
-    </li>
-
-    <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
+  
 
     <!-- Heading -->
-    <div class="sidebar-heading">
+    {{--  <div class="sidebar-heading">
       DOCUMENTS
     </div>
 
@@ -84,7 +90,7 @@
       <a class="nav-link" href="tables.html">
         <i class="fas fa-fw fa-table"></i>
         <span>Cash Memos</span></a>
-    </li>
+    </li>  --}}
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">

@@ -40,6 +40,11 @@ Route::get('/returned_orders', 'AdminController@returned')->name('order_returned
 
 Route::get('/order/placed', 'UserController@placed')->name('placed');
 
+Route::get('/user/company', 'UserController@company')->name('my_company');
+
+
+Route::patch('user/company/update/{id}', 'UserController@company_update')->name('company.update');
+
 Route::get('/order/placed/edit/{id}', 'UserController@edit')->name('order.edit');
 
 Route::patch('/order/placed/edit/{id}', 'UserController@update')->name('order.update');
